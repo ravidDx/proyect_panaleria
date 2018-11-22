@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Cliente index{% endblock %}
 
 {% block body %}
 
@@ -8,18 +8,70 @@
     <div class="card">
         <div class="card-header" style="background-color: #c8d9ec;">
             <div class="float-right">
-                <a href="#" role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cliente</a>
+                <a href="#client_new_modal" data-toggle="modal"  role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cliente</a>
             </div>
             <div class="float-left" style="color: #1e5d67;">
-                <h5> <i class="fa fa-search" aria-hidden="true"></i> Buscar Clientes</h5> 
+                <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Clientes</h5> 
             </div>
+        
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Buscar</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="card-body">           
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Direccion</th>
+                        <th>Cedula</th>
+                        <th>Fecha_creacion</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.id }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.cedula }}</td>
+                        <td>{{ cliente.fechaCreacion ? cliente.fechaCreacion|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('cliente_show', {'id': cliente.id}) }}">show</a>
+                            <a href="{{ path('cliente_edit', {'id': cliente.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ path('cliente_new') }}">Create new</a>
         </div>
     </div>
+
+
+    <div id="client_new_modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Reporte<span id="idRegistro"></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 
 {% endblock %}
