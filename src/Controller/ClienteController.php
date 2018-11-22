@@ -20,7 +20,14 @@ class ClienteController extends AbstractController
      */
     public function index(ClienteRepository $clienteRepository): Response
     {
-        return $this->render('cliente/index.html.twig', ['clientes' => $clienteRepository->findAll()]);
+
+        $form_new= $this->getFormNew();
+
+        return $this->render('cliente/index.html.twig', [
+             'form_new'=>$form_new->createView(),
+            'clientes' => $clienteRepository->findAll()
+
+        ]);
     }
 
     /**
@@ -39,11 +46,14 @@ class ClienteController extends AbstractController
 
             return $this->redirectToRoute('cliente_index');
         }
+        
 
         return $this->render('cliente/new.html.twig', [
             'cliente' => $cliente,
             'form' => $form->createView(),
         ]);
+
+
     }
 
     /**
@@ -87,4 +97,16 @@ class ClienteController extends AbstractController
 
         return $this->redirectToRoute('cliente_index');
     }
+
+
+
+    public function getFormNew(){ 
+
+        $cliente = new Cliente();
+        $form = $this->createForm(ClienteType::class, $cliente);
+
+        return $form;
+
+    }
+
 }

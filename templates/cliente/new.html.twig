@@ -1,11 +1,69 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}New Cliente{% endblock %}
 
-{% block body %}
-    <h1>Create new Cliente</h1>
+<div id="client_new_modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                	<div><i class="fa fa-edit"></i> Agregar nuevo cliente</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                {{form_start(form_new, {'action':'' , 'method':'POST' , 'attr': {'id': 'form-new'}} )}}
+	                <div class="modal-body">
 
-    {{ include('cliente/_form.html.twig') }}
+	                	   <div class="form-group row ">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.nombre) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.nombre,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
 
-    <a href="{{ path('cliente_index') }}">back to list</a>
-{% endblock %}
+						    <div class="form-group row">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.cedula) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.cedula,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+
+						   <div class="form-group row">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.email) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.email,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+
+						   <div class="form-group row">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.direccion) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.direccion,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+	               
+
+	                </div>
+
+	                 <div class="modal-footer">
+	                 	 {{ form_widget(form_new.guardar, {'attr':{'class':'btn btn-primary btn-sm '}}) }}
+	                 </div>
+
+                 {{form_end(form_new)}}
+
+            </div>
+        </div>
+</div>
+
