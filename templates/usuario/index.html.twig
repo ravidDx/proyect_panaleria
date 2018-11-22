@@ -3,18 +3,21 @@
 {% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/UsuarioController.php'|file_link(0) }}">src/Controller/UsuarioController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/usuario/index.html.twig'|file_link(0) }}">templates/usuario/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <br>
+    <div class="card">
+        <div class="card-header" style="background-color: #c8d9ec;">
+            <div class="float-right">
+                <a href="#" role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Usuario</a>
+            </div>
+            <div class="float-left" style="color: #1e5d67;">
+                <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Usuarios</h5> 
+            </div>
+        
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Buscar</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
 {% endblock %}
