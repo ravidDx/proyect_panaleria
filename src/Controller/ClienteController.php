@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/cliente")
@@ -30,31 +31,30 @@ class ClienteController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/new", name="cliente_new", methods="GET|POST")
+     * @Route("/new/ajax", name="cliente_new_ajax")
      */
-    public function new(Request $request): Response
-    {
+    public function newAjax(Request $request){ 
+
+        $data = $request->request->get('cliente');
         $cliente = new Cliente();
-        $form = $this->createForm(ClienteType::class, $cliente);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($cliente);
-            $em->flush();
+        $cliente->setNombre($data['nombre']);
+        $cliente->setEmail($data['email']);
+        $cliente->setDireccion($data['direccion']);
+        $cliente->setCedula($data['cedula']);
+        $cliente->setFechaCreacion(new \DateTime(date('d-m-Y')));
 
-            return $this->redirectToRoute('cliente_index');
-        }
-        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($cliente);
+        $em->flush();
 
-        return $this->render('cliente/new.html.twig', [
-            'cliente' => $cliente,
-            'form' => $form->createView(),
-        ]);
-
+        return new JsonResponse($cliente->getId());
 
     }
+
+ 
 
     /**
      * @Route("/{id}", name="cliente_show", methods="GET")
@@ -108,5 +108,6 @@ class ClienteController extends AbstractController
         return $form;
 
     }
+
 
 }

@@ -50,7 +50,6 @@
                 </tbody>
             </table>
 
-            <a href="{{ path('cliente_new') }}">Create new</a>
         </div>
     </div>
 
@@ -59,6 +58,11 @@
     {{ include('cliente/new.html.twig') }}
 
 
-
-
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ asset('js/cliente.js') }}" type="text/javascript"> </script>
+{% endblock %}
+
