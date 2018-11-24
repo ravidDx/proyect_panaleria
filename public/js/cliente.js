@@ -2,15 +2,20 @@ $(document).on('click', 'button.new-ajax', function(){
      that = $(this);
      $('#cliente_guardar').attr("disabled", true);
 
+     var f = new Date();
+     var fechaActual = f.getFullYear() + "-"+(f.getMonth()+1)+"-"+f.getDate();
+
      var cliente = {
         nombre: $("#cliente_nombre").val(),
         cedula: $("#cliente_cedula").val(),
         email: $("#cliente_email").val(),
         direccion: $("#cliente_direccion").val(),
+        fecha: fechaActual
      }
 
      if(cliente.nombre == "" || cliente.cedula == "" ){
           alert("Complete los campos requeridos");
+           $('#cliente_guardar').attr("disabled", false);
           return false;  
      }
 
@@ -25,17 +30,25 @@ $(document).on('click', 'button.new-ajax', function(){
         success: function (data)
         {
             console.log("cliente save exit");
-            console.log("id_cliente: "+data);
+            var result = JSON.parse(data);
+            console.log(result);
+
+            
+            var row = '<tr>'+"<td>"+result.id+"</td>"+"<td>"+result.nombre+"</td>" +"<td>"+result.email+
+                      "</td>"+"<td>"+result.direccion+"</td>" +"<td>"+result.cedula+"</td>" +"<td>"+cliente.fecha+"</td>"+'</tr>';
+
+            $("#table-clientes").append(row);
+        
+            
             $('#cliente_guardar').attr("disabled", false);
             $("#form-new")[0].reset();
             $( "#msg-server" ).append("<div id='msg' class='alert alert-info' role='alert'>¡Bien hecho! Cliente ha sido ingresado satisfactoriamente.</div>");
-
           	window.setTimeout(function() {
-			    $("#msg").fadeTo(400, 0).slideUp(400, function(){
-			        $(this).remove(); 
-			    });
-			}, 4000);
-		
+    			    $("#msg").fadeTo(400, 0).slideUp(400, function(){
+    			        $(this).remove(); 
+    			    });
+    			  }, 4000);
+
 
         }
     });
