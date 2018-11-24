@@ -20,7 +20,6 @@
             font-size: inherit;">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Direccion</th>
@@ -31,16 +30,18 @@
                 </thead>
                 <tbody>
                 {% for cliente in clientes %}
-                    <tr>
-                        <td>{{ cliente.id }}</td>
+                    <tr id='{{ cliente.id }}' >
                         <td>{{ cliente.nombre }}</td>
                         <td>{{ cliente.email }}</td>
                         <td>{{ cliente.direccion }}</td>
                         <td>{{ cliente.cedula }}</td>
                         <td>{{ cliente.fechaCreacion ? cliente.fechaCreacion|date('Y-m-d') : '' }}</td>
                         <td>
-                            <a href="{{ path('cliente_show', {'id': cliente.id}) }}">show</a>
-                            <a href="{{ path('cliente_edit', {'id': cliente.id}) }}">edit</a>
+                            <!--<a href="{{ path('cliente_show', {'id': cliente.id}) }}">show</a>-->
+                            <a href='#client_new_modal' data-toggle='modal' class="edit-cli" style="color: #dead18;" title="editar"><i class="fa fa-edit"></i></a>
+                            <a href='#client_new_modal' data-toggle='modal' class="delete-cli" style="color: #e03535;" title="eliminar"><i class="fa fa-times"></i></a>
+                            <!--<a href="{{ path('cliente_edit', {'id': cliente.id}) }}"><i class="fa fa-trash"></i></a>-->
+
                         </td>
                     </tr>
                 {% else %}
@@ -68,8 +69,14 @@
     <script src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/cliente.js') }}" type="text/javascript"> </script>
     <script>
+
         $(document).ready(function() {
-            $('#table-clientes').DataTable();
+            $('#table-clientes').DataTable({
+                "language": {
+                  "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                }
+              });
+
         } );
     </script>
 

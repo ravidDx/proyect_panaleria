@@ -33,9 +33,21 @@ $(document).on('click', 'button.new-ajax', function(){
             var result = JSON.parse(data);
             console.log(result);
 
+            var iconDelete = "<a href='#' class='delete-cli' title='eliminar' style='color: #e03535;' ><i class='fa fa-times' ></i></a>";
+            var iconEdit = "<a class='edit-cli' title='editar' href='#client_new_modal' data-toggle='modal' style='color: #dead18;'><i class='fa fa-edit' ></i></a>";
+            var acciones =  iconEdit+" "+ iconDelete;
+
             var table = $('#table-clientes').DataTable();
- 
-            table.row.add( [ result.id, result.nombre, result.email,result.direccion,result.cedula,cliente.fecha,456] ).draw();
+            
+            table.row.add([ 
+                result.nombre, 
+                result.email,
+                result.direccion,
+                result.cedula,
+                cliente.fecha,
+                acciones]).node().id = result.id ;
+
+            table.draw( false );
 
             
             $('#cliente_guardar').attr("disabled", false);
