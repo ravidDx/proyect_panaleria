@@ -33,12 +33,10 @@ $(document).on('click', 'button.new-ajax', function(){
             var result = JSON.parse(data);
             console.log(result);
 
-            
-            var row = '<tr>'+"<td>"+result.id+"</td>"+"<td>"+result.nombre+"</td>" +"<td>"+result.email+
-                      "</td>"+"<td>"+result.direccion+"</td>" +"<td>"+result.cedula+"</td>" +"<td>"+cliente.fecha+"</td>"+'</tr>';
+            var table = $('#table-clientes').DataTable();
+ 
+            table.row.add( [ result.id, result.nombre, result.email,result.direccion,result.cedula,cliente.fecha,456] ).draw();
 
-            $("#table-clientes").append(row);
-        
             
             $('#cliente_guardar').attr("disabled", false);
             $("#form-new")[0].reset();
