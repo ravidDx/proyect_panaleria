@@ -17,12 +17,13 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 
 
-
 /**
  * @Route("/cliente")
  */
 class ClienteController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="cliente_index", methods="GET")
      */
