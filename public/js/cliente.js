@@ -1,23 +1,26 @@
+
+//evento ajax para nuevo cliente
 $(document).on('click', 'button.new-ajax', function(){
-     that = $(this);
-     $('#cliente_guardar').attr("disabled", true);
+    that = $(this);
+    console.log("new");
+    $('#cliente_guardar').attr("disabled", true);
 
-     var f = new Date();
-     var fechaActual = f.getFullYear() + "-"+(f.getMonth()+1)+"-"+f.getDate();
+    var f = new Date();
+    var fechaActual = f.getFullYear() + "-"+(f.getMonth()+1)+"-"+f.getDate();
 
-     var cliente = {
+    var cliente = {
         nombre: $("#cliente_nombre").val(),
         cedula: $("#cliente_cedula").val(),
         email: $("#cliente_email").val(),
         direccion: $("#cliente_direccion").val(),
         fecha: fechaActual
-     }
+    }
 
-     if(cliente.nombre == "" || cliente.cedula == "" ){
-          alert("Complete los campos requeridos");
-           $('#cliente_guardar').attr("disabled", false);
-          return false;  
-     }
+    if(cliente.nombre == "" || cliente.cedula == "" ){
+        alert("Complete los campos requeridos");
+        $('#cliente_guardar').attr("disabled", false);
+        return false;  
+    }
 
     $.ajax({
         url:'/cliente/new/ajax',
@@ -53,11 +56,12 @@ $(document).on('click', 'button.new-ajax', function(){
             $('#cliente_guardar').attr("disabled", false);
             $("#form-new")[0].reset();
             $( "#msg-server" ).append("<div id='msg' class='alert alert-info' role='alert'>¡Bien hecho! Cliente ha sido ingresado satisfactoriamente.</div>");
-          	window.setTimeout(function() {
-    			    $("#msg").fadeTo(400, 0).slideUp(400, function(){
-    			        $(this).remove(); 
-    			    });
-    			  }, 4000);
+          	
+            window.setTimeout(function() {
+			    $("#msg").fadeTo(400, 0).slideUp(400, function(){
+			        $(this).remove(); 
+			    });
+			  }, 4000);
 
 
         }
@@ -65,4 +69,100 @@ $(document).on('click', 'button.new-ajax', function(){
 
     return false;            
                  
+});
+
+
+//evento  ajax para poblar datos de edicion cliente
+$(document).on('click', 'a.edit-cli', function(){
+
+    $("#text-header-modal").html('<i class="fa fa-edit"></i> Editar cliente');
+    that = $(this);
+    $("#cliente_guardar").removeClass("new-ajax");
+    $("#cliente_guardar").addClass("update-ajax");
+
+    var id=that.parent().parent().attr("id");
+    var cliente = {
+        id:id,
+        nombre: that.parents("tr").find("td")[0].innerHTML,
+        email: that.parents("tr").find("td")[1].innerHTML,
+        direccion: that.parents("tr").find("td")[2].innerHTML,
+        cedula: that.parents("tr").find("td")[3].innerHTML,
+        fecha: that.parents("tr").find("td")[4].innerHTML
+     }
+
+    $("#cliente_nombre").val(cliente.nombre);
+    $("#cliente_cedula").val(cliente.cedula);
+    $("#cliente_email").val(cliente.email);
+    $("#cliente_direccion").val(cliente.direccion);
+
+
+    return false;            
+                 
+});
+
+
+$(document).on('click', 'button.update-ajax', function(){
+
+    $('#cliente_guardar').attr("disabled", true);
+
+    var id=that.parent().parent().attr("id");
+    var clienteUpdate = {
+        id:id,
+        nombre: $("#cliente_nombre").val(),
+        cedula: $("#cliente_cedula").val(),
+        email: $("#cliente_email").val(),
+        direccion: $("#cliente_direccion").val(),
+    }
+
+
+    $.ajax({
+        url:'/cliente/edit/ajax',
+        type: "POST",
+        dataType: "json",
+        data: {
+            "cliente": clienteUpdate
+        },
+        async: true,
+        success: function (data)
+        {
+
+            console.log("update");
+
+            //$("#form-new")[0].reset();
+
+            $( "#msg-server" ).append("<div id='msg' class='alert alert-info' role='alert'>¡Bien hecho! Cliente ha sido actualizado satisfactoriamente.</div>");
+        
+            window.setTimeout(function() {
+                $("#msg").fadeTo(400, 0).slideUp(400, function(){
+                    $(this).remove(); 
+                    $('#cliente_guardar').attr("disabled", false);
+                    
+                });
+            }, 4000);
+
+            that.parents("tr").find("td:eq(0)").html(clienteUpdate.nombre);
+            that.parents("tr").find("td:eq(1)").html(clienteUpdate.email);
+            that.parents("tr").find("td:eq(2)").html(clienteUpdate.direccion);
+            that.parents("tr").find("td:eq(3)").html(clienteUpdate.cedula);
+
+        }
+    });
+
+
+
+    return false;      
+
+             
+});
+
+
+//evento   para limpiar form
+$(document).on('click', '#new-modal', function(){
+    that = $(this);
+    $("#form-new")[0].reset();
+    $("#cliente_guardar").removeClass("update-ajax");
+    $("#cliente_guardar").addClass("new-ajax");
+    $("#text-header-modal").html('<i class="fa fa-edit"></i> Agregar nuevo cliente');
+    return false;
+
 });

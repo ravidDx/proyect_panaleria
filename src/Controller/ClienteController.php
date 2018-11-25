@@ -69,7 +69,7 @@ class ClienteController extends AbstractController
             return new JsonResponse($result);
         }
 
-        return new JsonResponse("Error");
+        return new JsonResponse("Error server");
 
        
 
@@ -103,23 +103,31 @@ class ClienteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="cliente_edit", methods="GET|POST")
+     * @Route("/edit/ajax", name="cliente_edit_ajax", methods="GET|POST")
      */
-    public function edit(Request $request, Cliente $cliente): Response
+    public function edit(Request $request): Response
     {
-        $form = $this->createForm(ClienteType::class, $cliente);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($request->isXmlHttpRequest()) 
+        {
+            $data = $request->request->get('cliente');
+            $id = $data['id'];
 
-            return $this->redirectToRoute('cliente_index', ['id' => $cliente->getId()]);
+            $cliente = $this->getDoctrine()->getRepository(Cliente::class)->find($id);
+            $cliente->setNombre($data['nombre']);
+            $cliente->setEmail($data['email']);
+            $cliente->setDireccion($data['direccion']);
+            $cliente->setCedula($data['cedula']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return new JsonResponse($cliente->getId());
         }
 
-        return $this->render('cliente/edit.html.twig', [
-            'cliente' => $cliente,
-            'form' => $form->createView(),
-        ]);
+        return new JsonResponse("Error server");
+
+
     }
 
     /**

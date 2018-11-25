@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-header" style="background-color: #c8d9ec;">
             <div class="float-right">
-                <a href="#client_new_modal" data-toggle="modal"  role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cliente</a>
+                <a href="#client_new_modal" data-toggle="modal"  role="button" class="btn btn-info btn-sm ml-auto" id="new-modal" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Cliente</a>
             </div>
             <div class="float-left" style="color: #1e5d67;">
                 <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Clientes</h5> 
@@ -31,17 +31,15 @@
                 <tbody>
                 {% for cliente in clientes %}
                     <tr id='{{ cliente.id }}' >
-                        <td>{{ cliente.nombre }}</td>
-                        <td>{{ cliente.email }}</td>
-                        <td>{{ cliente.direccion }}</td>
-                        <td>{{ cliente.cedula }}</td>
-                        <td>{{ cliente.fechaCreacion ? cliente.fechaCreacion|date('Y-m-d') : '' }}</td>
+                        <td id="td-nombre">{{ cliente.nombre }}</td>
+                        <td td="td-email">{{ cliente.email }}</td>
+                        <td td="td-direccion">{{ cliente.direccion }}</td>
+                        <td td="td-cedula">{{ cliente.cedula }}</td>
+                        <td td="td-fecha">{{ cliente.fechaCreacion ? cliente.fechaCreacion|date('Y-m-d') : '' }}</td>
                         <td>
-                            <!--<a href="{{ path('cliente_show', {'id': cliente.id}) }}">show</a>-->
                             <a href='#client_new_modal' data-toggle='modal' class="edit-cli" style="color: #dead18;" title="editar"><i class="fa fa-edit"></i></a>
                             <a href='#client_new_modal' data-toggle='modal' class="delete-cli" style="color: #e03535;" title="eliminar"><i class="fa fa-times"></i></a>
-                            <!--<a href="{{ path('cliente_edit', {'id': cliente.id}) }}"><i class="fa fa-trash"></i></a>-->
-
+                          
                         </td>
                     </tr>
                 {% else %}
@@ -67,6 +65,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <!--Datatables-->
     <script src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!--eventos-->
     <script src="{{ asset('js/cliente.js') }}" type="text/javascript"> </script>
     <script>
 
