@@ -41,6 +41,11 @@ class Cliente
      */
     private $fecha_creacion;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $telefono;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class Cliente
     public function setFechaCreacion(\DateTimeInterface $fecha_creacion): self
     {
         $this->fecha_creacion = $fecha_creacion;
+
+        return $this;
+    }
+
+    public function getTelefono(): ?string
+    {
+        return $this->telefono;
+    }
+
+    public function setTelefono(string $telefono): self
+    {
+        $this->telefono = $telefono;
 
         return $this;
     }

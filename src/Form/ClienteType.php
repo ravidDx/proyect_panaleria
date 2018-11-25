@@ -19,6 +19,7 @@ class ClienteType extends AbstractType
             ->add('email',TextType::class)
             ->add('direccion',TextareaType::class)
             ->add('cedula',TextType::class)
+            ->add('telefono',TextType::class)
             ->add('guardar', SubmitType::class)
         ;
     }

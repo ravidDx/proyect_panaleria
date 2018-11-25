@@ -25,9 +25,10 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Direccion</th>
                         <th>Cedula</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Telefono</th>
                         <th>Agregado</th>
                         <th>Acciones</th>
                     </tr>
@@ -36,9 +37,10 @@
                 {% for cliente in clientes %}
                     <tr id='{{ cliente.id }}' >
                         <td id="td-nombre">{{ cliente.nombre }}</td>
+                        <td td="td-cedula">{{ cliente.cedula }}</td>
                         <td td="td-email">{{ cliente.email }}</td>
                         <td td="td-direccion">{{ cliente.direccion }}</td>
-                        <td td="td-cedula">{{ cliente.cedula }}</td>
+                        <td id="td-telefono">{{ cliente.telefono }}</td>
                         <td td="td-fecha">{{ cliente.fechaCreacion ? cliente.fechaCreacion|date('Y-m-d') : '' }}</td>
                         <td>
                             <a href='#client_new_modal' data-toggle='modal' class="edit-cli" style="color: #dead18;" title="editar"><i class="fa fa-edit"></i></a>

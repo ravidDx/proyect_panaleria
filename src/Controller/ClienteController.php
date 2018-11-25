@@ -54,6 +54,7 @@ class ClienteController extends AbstractController
             $cliente->setEmail($data['email']);
             $cliente->setDireccion($data['direccion']);
             $cliente->setCedula($data['cedula']);
+            $cliente->setTelefono($data['telefono']);
             $cliente->setFechaCreacion(new \DateTime(date($data['fecha'] )) );
 
             $em = $this->getDoctrine()->getManager();
@@ -116,6 +117,7 @@ class ClienteController extends AbstractController
             $cliente->setEmail($data['email']);
             $cliente->setDireccion($data['direccion']);
             $cliente->setCedula($data['cedula']);
+            $cliente->setTelefono($data['telefono']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();

@@ -13,11 +13,12 @@ $(document).on('click', 'button.new-ajax', function(){
         cedula: $("#cliente_cedula").val(),
         email: $("#cliente_email").val(),
         direccion: $("#cliente_direccion").val(),
+        telefono:$("#cliente_telefono").val(),
         fecha: fechaActual
     }
 
     if(cliente.nombre == "" || cliente.cedula == "" ){
-        alert("Complete los campos requeridos");
+        alert("Complete los campos requeridos nombre o cedula");
         $('#cliente_guardar').attr("disabled", false);
         return false;  
     }
@@ -32,7 +33,6 @@ $(document).on('click', 'button.new-ajax', function(){
         async: true,
         success: function (data)
         {
-            console.log("cliente save exit");
             var result = JSON.parse(data);
             console.log(result);
 
@@ -43,10 +43,11 @@ $(document).on('click', 'button.new-ajax', function(){
             var table = $('#table-clientes').DataTable();
             
             table.row.add([ 
-                result.nombre, 
+                result.nombre,
+                result.cedula, 
                 result.email,
                 result.direccion,
-                result.cedula,
+                result.telefono,
                 cliente.fecha,
                 acciones]).node().id = result.id ;
 
@@ -85,16 +86,18 @@ $(document).on('click', 'a.edit-cli', function(){
     var cliente = {
         id:id,
         nombre: that.parents("tr").find("td")[0].innerHTML,
-        email: that.parents("tr").find("td")[1].innerHTML,
-        direccion: that.parents("tr").find("td")[2].innerHTML,
-        cedula: that.parents("tr").find("td")[3].innerHTML,
-        fecha: that.parents("tr").find("td")[4].innerHTML
+        cedula: that.parents("tr").find("td")[1].innerHTML,
+        email: that.parents("tr").find("td")[2].innerHTML,
+        direccion: that.parents("tr").find("td")[3].innerHTML,
+        telefono: that.parents("tr").find("td")[4].innerHTML,
+        fecha: that.parents("tr").find("td")[5].innerHTML
      }
 
     $("#cliente_nombre").val(cliente.nombre);
     $("#cliente_cedula").val(cliente.cedula);
     $("#cliente_email").val(cliente.email);
     $("#cliente_direccion").val(cliente.direccion);
+    $("#cliente_telefono").val(cliente.telefono);
 
 
     return false;            
@@ -114,6 +117,7 @@ $(document).on('click', 'button.update-ajax', function(){
         cedula: $("#cliente_cedula").val(),
         email: $("#cliente_email").val(),
         direccion: $("#cliente_direccion").val(),
+        telefono: $("#cliente_telefono").val(),
     }
 
 
@@ -143,9 +147,10 @@ $(document).on('click', 'button.update-ajax', function(){
             }, 4000);
 
             that.parents("tr").find("td:eq(0)").html(clienteUpdate.nombre);
-            that.parents("tr").find("td:eq(1)").html(clienteUpdate.email);
-            that.parents("tr").find("td:eq(2)").html(clienteUpdate.direccion);
-            that.parents("tr").find("td:eq(3)").html(clienteUpdate.cedula);
+            that.parents("tr").find("td:eq(1)").html(clienteUpdate.cedula);
+            that.parents("tr").find("td:eq(2)").html(clienteUpdate.email);
+            that.parents("tr").find("td:eq(3)").html(clienteUpdate.direccion);
+            that.parents("tr").find("td:eq(4)").html(clienteUpdate.telefono);
 
         }
     });
