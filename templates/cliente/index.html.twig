@@ -15,7 +15,11 @@
             </div>
         
         </div>
-        <div class="card-body">           
+        <div class="card-body"> 
+
+            <p class="card-text" id="msg-delete"></p>
+
+
             <table class="table table-sm" id="table-clientes" style="font-family: -webkit-pictograph;
             font-size: inherit;">
                 <thead>
@@ -38,7 +42,7 @@
                         <td td="td-fecha">{{ cliente.fechaCreacion ? cliente.fechaCreacion|date('Y-m-d') : '' }}</td>
                         <td>
                             <a href='#client_new_modal' data-toggle='modal' class="edit-cli" style="color: #dead18;" title="editar"><i class="fa fa-edit"></i></a>
-                            <a href='#client_new_modal' data-toggle='modal' class="delete-cli" style="color: #e03535;" title="eliminar"><i class="fa fa-times"></i></a>
+                            <a href='#' data-toggle='modal' class="delete-cli" style="color: #e03535;" title="eliminar"><i class="fa fa-times"></i></a>
                           
                         </td>
                     </tr>

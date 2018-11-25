@@ -74,9 +74,10 @@ $(document).on('click', 'button.new-ajax', function(){
 
 //evento  ajax para poblar datos de edicion cliente
 $(document).on('click', 'a.edit-cli', function(){
+    that = $(this);
 
     $("#text-header-modal").html('<i class="fa fa-edit"></i> Editar cliente');
-    that = $(this);
+    
     $("#cliente_guardar").removeClass("new-ajax");
     $("#cliente_guardar").addClass("update-ajax");
 
@@ -101,6 +102,7 @@ $(document).on('click', 'a.edit-cli', function(){
 });
 
 
+//evento para actualizar cliente
 $(document).on('click', 'button.update-ajax', function(){
 
     $('#cliente_guardar').attr("disabled", true);
@@ -153,6 +155,48 @@ $(document).on('click', 'button.update-ajax', function(){
     return false;      
 
              
+});
+
+
+//evento para eliminar cliente
+$(document).on('click', 'a.delete-cli', function(){
+    that = $(this);
+    var id=that.parent().parent().attr("id");
+
+    eliminar=confirm("¿Realmente deseas eliminar el cliente " + that.parents("tr").find("td")[0].innerHTML+"?");
+    if (eliminar){
+        $.ajax({
+            url:'/cliente/delete/ajax',
+            type: "POST",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            async: true,
+            success: function (data)
+            {
+                console.log("exit delete");
+                console.log(data);
+                var table = $('#table-clientes').DataTable();
+                table.row( that.parents("tr") ).remove().draw();
+
+                $( "#msg-delete" ).append("<div id='msg' class='alert alert-info' role='alert'>Aviso! Datos eliminados exitosamente.</div>");
+        
+                window.setTimeout(function() {
+                    $("#msg").fadeTo(400, 0).slideUp(400, function(){
+                        $(this).remove();                         
+                    });
+                }, 4000);
+
+
+            }
+        });
+    }
+
+       
+    
+    return false;    
+
 });
 
 

@@ -71,8 +71,6 @@ class ClienteController extends AbstractController
 
         return new JsonResponse("Error server");
 
-       
-
     }
 
     /**
@@ -131,17 +129,37 @@ class ClienteController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="cliente_delete", methods="DELETE")
+     * @Route("/delete/ajax", name="cliente_delete_ajax")
      */
-    public function delete(Request $request, Cliente $cliente): Response
+    public function delete(Request $request): Response
     {
+
+        if ($request->isXmlHttpRequest()) 
+        {
+            $id = $request->request->get('id');
+            $em = $this->getDoctrine()->getManager();
+
+            $cliente= $em->getRepository(Cliente::class)->find($id);
+            $em->remove($cliente);
+            $em->flush();
+            
+            return new JsonResponse($id);
+
+        }
+
+        return new JsonResponse("Error server");
+
+
+
+        /*
         if ($this->isCsrfTokenValid('delete'.$cliente->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($cliente);
             $em->flush();
         }
+        */
 
-        return $this->redirectToRoute('cliente_index');
+        
     }
 
 
