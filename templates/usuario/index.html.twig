@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-header" style="background-color: #c8d9ec;">
             <div class="float-right">
-                <a href="#user_new_modal" data-toggle="modal" role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Usuario</a>
+                <a href="#user_new_modal" data-toggle="modal" role="button" class="find btn btn-info btn-sm ml-auto" id="new-modal" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Usuario</a>
             </div>
             <div class="float-left" style="color: #1e5d67;">
                 <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Usuarios</h5> 
@@ -15,6 +15,35 @@
         
         </div>
         <div class="card-body">
+
+            <p class="card-text" id="msg-delete"></p>
+
+            <table class="table table-sm" id="table-usuarios" style="font-family: -webkit-pictograph;
+            font-size: inherit;">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for usuario in usuarios %}
+                    <tr id='{{ usuario.id }}' >
+                        <td id="td-nombre">{{ usuario.nombre }}</td>
+                        <td td="td-email">{{ usuario.email }}</td>
+                        <td td="td-username">{{ usuario.username }}</td>
+                        <td>
+                            <a href='#user_new_modal' data-toggle='modal' class="edit-user" style="color: #dead18;" title="editar"><i class="fa fa-edit"></i></a>
+                            <a href='#' data-toggle='modal' class="delete-user" style="color: #e03535;" title="eliminar"><i class="fa fa-times"></i></a>                          
+                        </td>
+                    </tr>
+                {% else %}
+                    
+                {% endfor %}
+                </tbody>
+            </table>
            
 
         </div>
@@ -33,5 +62,16 @@
     <script src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <!--eventos-->
     <script src="{{ asset('js/usuario.js') }}" type="text/javascript"> </script>
+    <script>
+
+        $(document).ready(function() {
+            $('#table-usuarios').DataTable({
+                "language": {
+                  "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                }
+              });
+
+        } );
+    </script>
 
 {% endblock %}

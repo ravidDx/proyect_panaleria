@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UsuarioType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -32,12 +33,13 @@ class UsuarioController extends AbstractController
     /**
      * @Route("/", name="usuario")
      */
-    public function index()
+    public function index( UserRepository $userRepository )
     {
     	$form_new= $this->getFormNew();
 
         return $this->render('usuario/index.html.twig', [
-            'form_new'=>$form_new->createView()
+            'form_new'=>$form_new->createView(),
+            'usuarios' => $userRepository->findAll()
         ]);
     }
 
@@ -78,6 +80,57 @@ class UsuarioController extends AbstractController
 
         return new JsonResponse("Error server");
 
+    }
+
+
+    /**
+    * @Route("/edit/ajax", name="usuario_edit_ajax")
+    */
+    public function edit(Request $request)
+    {
+
+        if ($request->isXmlHttpRequest()) 
+        {
+            $data = $request->request->get('usuario');
+            $id = $data['id'];
+
+            $usuario = $this->getDoctrine()->getRepository(User::class)->find($id);
+            $usuario->setNombre($data['nombre']);
+            $usuario->setEmail($data['email']);
+            $usuario->setusername($data['username']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return new JsonResponse($usuario->getId());
+        }
+
+        return new JsonResponse("Error server");
+
+    }
+
+
+    /**
+    * @Route("/delete/ajax", name="usuario_delete_ajax")
+    */
+    public function delete(Request $request)
+    {
+
+        if ($request->isXmlHttpRequest()) 
+        {
+            $id = $request->request->get('id');
+            $em = $this->getDoctrine()->getManager();
+
+            $usuario= $em->getRepository(User::class)->find($id);
+            $em->remove($usuario);
+            $em->flush();
+            
+            return new JsonResponse($id);
+
+        }
+
+        return new JsonResponse("Error server");
+    
     }
 
 

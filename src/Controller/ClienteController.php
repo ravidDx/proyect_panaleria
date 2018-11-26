@@ -108,7 +108,7 @@ class ClienteController extends AbstractController
     /**
      * @Route("/delete/ajax", name="cliente_delete_ajax")
      */
-    public function delete(Request $request): Response
+    public function delete(Request $request)
     {
 
         if ($request->isXmlHttpRequest()) 
