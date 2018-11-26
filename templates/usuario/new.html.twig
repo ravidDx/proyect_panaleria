@@ -1,0 +1,71 @@
+
+<!-- Modal -->
+<div id="user_new_modal" class="modal fade">
+        <div class="modal-dialog">
+        	<!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                	<div id="text-header-modal"><i class="fa fa-edit"></i> Agregar nuevo usuario</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                {{form_start(form_new, {'action':'' , 'method':'POST' , 'attr': {'id': 'form-new'}} )}}
+	                <div class="modal-body">
+
+	                	<div class="row" id="msg-server"></div>	
+
+	                	   <div class="form-group row ">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.nombre) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.nombre,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+
+						   <div class="form-group row">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.email) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.email,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+
+							<div class="form-group row">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.username) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.username,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+
+
+						   <div class="form-group row">
+						   		<div class="col-md-3 offset-md-1 ">
+						   			{{ form_label(form_new.password) }}
+						   		</div>
+							   	<div class="col-md-7">
+									{{ form_widget(form_new.password,
+					                	{'attr': {class: 'form-control form-control-sm'}  } )
+					                }}
+								</div>
+						   </div>
+	               
+	                </div>
+
+	                 <div class="modal-footer">
+	                 	 {{ form_widget(form_new.guardar, {'attr':{'class':'new-ajax btn btn-primary btn-sm '}}) }}
+	                 </div>
+
+                 {{form_end(form_new)}}
+
+            </div>
+        </div>
+</div>
