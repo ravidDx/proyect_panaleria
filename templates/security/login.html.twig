@@ -1,0 +1,37 @@
+{% extends 'base_login.html.twig' %}
+
+{% block title %}Iniciar Sesión {% endblock %}
+
+{% block body %}
+<style>
+    .error {color:red;}
+</style>
+
+<div class="text-center">
+
+
+    {% if error %}
+      <span class="error">{{error.messageKey}}</span>
+    {% endif %}
+
+    <form class="form-signin" action="{{path('login')}}"  method="POST">
+      
+      <h1 class="h3 mb-3 font-weight-normal">Inicio de sesión</h1>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input type="text" id="inputEmail" class="form-control" name="_username" value="{{last_username}}"  placeholder="Username" required="" autofocus="">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Password" required="">
+      {# Ruta a la que redirige si hay éxito #}
+      <input type="hidden" name="_target_path" value="{{ path('factura') }}" />
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Recordar
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      <p class="mt-5 mb-3 text-muted">© 2018-2019</p>
+    </form>
+
+</div>
+{% endblock %}
+

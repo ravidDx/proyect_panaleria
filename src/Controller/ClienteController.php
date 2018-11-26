@@ -74,33 +74,7 @@ class ClienteController extends AbstractController
 
     }
 
-    /**
-     * @Route("/list/ajax", name="cliente_list_ajax")
-     */
-    public function listAjax(ClienteRepository $clienteRepository){
-
-        
-        $clientes = $clienteRepository->findAll();
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new ObjectNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonContent = $serializer->serialize($clientes, 'json');
-
-         return new JsonResponse($jsonContent);
-
-    }
-
- 
-
-    /**
-     * @Route("/{id}", name="cliente_show", methods="GET")
-     */
-    public function show(Cliente $cliente): Response
-    {
-        return $this->render('cliente/show.html.twig', ['cliente' => $cliente]);
-    }
-
+  
     /**
      * @Route("/edit/ajax", name="cliente_edit_ajax", methods="GET|POST")
      */
@@ -127,8 +101,9 @@ class ClienteController extends AbstractController
 
         return new JsonResponse("Error server");
 
-
     }
+
+
 
     /**
      * @Route("/delete/ajax", name="cliente_delete_ajax")
@@ -150,20 +125,8 @@ class ClienteController extends AbstractController
         }
 
         return new JsonResponse("Error server");
-
-
-
-        /*
-        if ($this->isCsrfTokenValid('delete'.$cliente->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($cliente);
-            $em->flush();
-        }
-        */
-
-        
+    
     }
-
 
 
     public function getFormNew(){ 
@@ -174,6 +137,7 @@ class ClienteController extends AbstractController
         return $form;
 
     }
+
 
 
 }
