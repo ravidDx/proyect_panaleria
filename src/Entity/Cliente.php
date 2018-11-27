@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class Cliente
      * @ORM\Column(type="string", length=255)
      */
     private $telefono;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Factura", mappedBy="cliente", orphanRemoval=true)
+     */
+    private $facturas;
+
+    public function __construct()
+    {
+        $this->facturas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,5 +135,34 @@ class Cliente
         return $this;
     }
 
+    /**
+     * @return Collection|Factura[]
+     */
+    public function getFacturas(): Collection
+    {
+        return $this->facturas;
+    }
 
+    public function addFactura(Factura $factura): self
+    {
+        if (!$this->facturas->contains($factura)) {
+            $this->facturas[] = $factura;
+            $factura->setCliente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFactura(Factura $factura): self
+    {
+        if ($this->facturas->contains($factura)) {
+            $this->facturas->removeElement($factura);
+            // set the owning side to null (unless already changed)
+            if ($factura->getCliente() === $this) {
+                $factura->setCliente(null);
+            }
+        }
+
+        return $this;
+    }
 }
