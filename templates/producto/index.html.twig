@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Productos{% endblock %}
+
 
 {% block body %}
     <br>
     <div class="card">
         <div class="card-header" style="background-color: #c8d9ec;">
             <div class="float-right">
-                <a href="#" role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Producto</a>
+                <a  href="#product_new_modal" data-toggle="modal" role="button" class="btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Producto</a>
             </div>
             <div class="float-left" style="color: #1e5d67;">
                 <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Productos</h5> 
@@ -15,9 +16,33 @@
         
         </div>
         <div class="card-body">
-            <h5 class="card-title">Buscar</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+          
         </div>
     </div>
+
+
+     {{ include('producto/new.html.twig') }}
+
+
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <!--check-->
+    <script src="{{ asset('librerias/bootstrap-checkbox-1.5.0/dist/js/bootstrap-checkbox.js') }}" defer></script>
+  
+    <script>
+
+        $(document).ready(function() {
+            $(':checkbox').checkboxpicker();
+
+        } );
+    </script>
+
+
+{% endblock %}
+
+
+
+
