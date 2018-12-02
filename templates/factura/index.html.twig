@@ -1,23 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Facturas{% endblock %}
 
 {% block body %}
     <br>
-    <div class="card">
-        <div class="card-header" style="background-color: #c8d9ec;">
-            <div class="float-right">
-                <a href="#" role="button" class="find btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nueva Factura</a>
-            </div>
-            <div class="float-left" style="color: #1e5d67;">
-                <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Factura</h5> 
-            </div>
+    <fieldset id="fieldset_1" >
         
+        <div class="card">
+            <div class="card-header" style="background-color: #c8d9ec;">
+                <div class="float-right">
+                    <a href="#" role="button" class="new-fact btn btn-info btn-sm ml-auto" ><i class="fa fa-plus" aria-hidden="true"></i> Nueva Factura</a>
+                </div>
+                <div class="float-left" style="color: #1e5d67;">
+                    <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Factura</h5> 
+                </div>
+            
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Buscar</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Buscar</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
+    </fieldset>
+
+     {{ include('factura/new.html.twig') }}
+
+
 {% endblock %}
+
+
+{% block javascripts %}
+ {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>        
+
+    <script>
+         //FUNCIÓN PARA EL BOTON SIGUIENTE
+        $('.new-fact').on("click", function() {
+            console.log("click");
+             //$("#fieldset_1").addClass("invisible");
+            $("#fieldset_2").removeClass("invisible");
+            //$('.fieldset_2').toggle();
+            $('#fieldset_1').slideUp();
+ 
+           
+            return false;
+        });
+
+
+    </script>
+
+{% endblock %}
+
