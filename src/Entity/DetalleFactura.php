@@ -33,21 +33,20 @@ class DetalleFactura
      */
     private $precio;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Producto", mappedBy="detalleFactura", orphanRemoval=true)
-     */
-    private $productos;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Factura", inversedBy="detalleFacturas")
      * @ORM\JoinColumn(nullable=false)
      */
     private $factura;
 
-    public function __construct()
-    {
-        $this->productos = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Producto", inversedBy="detalleFacturas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $productos;
+
+ 
 
     public function getId(): ?int
     {
@@ -102,34 +101,17 @@ class DetalleFactura
         return $this;
     }
 
-    /**
-     * @return Collection|Producto[]
-     */
-    public function getProductos(): Collection
+    public function getProductos(): ?Producto
     {
         return $this->productos;
     }
 
-    public function addProducto(Producto $producto): self
+    public function setProductos(?Producto $productos): self
     {
-        if (!$this->productos->contains($producto)) {
-            $this->productos[] = $producto;
-            $producto->setDetalleFactura($this);
-        }
+        $this->productos = $productos;
 
         return $this;
     }
 
-    public function removeProducto(Producto $producto): self
-    {
-        if ($this->productos->contains($producto)) {
-            $this->productos->removeElement($producto);
-            // set the owning side to null (unless already changed)
-            if ($producto->getDetalleFactura() === $this) {
-                $producto->setDetalleFactura(null);
-            }
-        }
-
-        return $this;
-    }
+  
 }

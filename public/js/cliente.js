@@ -2,7 +2,6 @@
 //evento ajax para nuevo cliente
 $(document).on('click', 'button.new-ajax', function(){
     that = $(this);
-    console.log("new");
     $('#cliente_guardar').attr("disabled", true);
 
     var f = new Date();
@@ -52,7 +51,6 @@ $(document).on('click', 'button.new-ajax', function(){
                 acciones]).node().id = result.id ;
 
             table.draw( false );
-
             
             $('#cliente_guardar').attr("disabled", false);
             $("#form-new")[0].reset();
@@ -63,7 +61,6 @@ $(document).on('click', 'button.new-ajax', function(){
 			        $(this).remove(); 
 			    });
 			  }, 4000);
-
 
         }
     });
@@ -197,9 +194,7 @@ $(document).on('click', 'a.delete-cli', function(){
             }
         });
     }
-
-       
-    
+          
     return false;    
 
 });

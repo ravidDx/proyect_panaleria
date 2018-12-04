@@ -16,12 +16,52 @@
         
         </div>
         <div class="card-body">
+
+            <table class="table table-sm" id="table-productos" style="font-family: -webkit-pictograph;
+            font-size: inherit;">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Producto</th>
+                        <th>Precio paq.</th>
+                        <th>Precio uds.</th>
+                        <th>Nº paq.</th>
+                        <th>Nº uds.</th>
+                        <th>Total uds.</th>
+                        <th>Iva ?</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for producto in productos %}
+                    <tr id='{{ producto.id }}' >
+                        <td>{{ producto.barcode }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.precioPack }}</td>
+                        <td>{{ producto.precioUnit }}</td>
+                        <td>{{ producto.cantPack }}</td>
+                        <td>{{ producto.cantUnit }}</td>
+                        <td>{{ producto.cantTotal }}</td>
+                        <td>{{ producto.isIva }}</td>
+                
+                        <td>
+                            <a href='#product_new_modal' data-toggle='modal' class="edit-prod" style="color: #dead18;" title="editar"><i class="fa fa-edit"></i></a>
+                            <a href='#' data-toggle='modal' class="delete-prod" style="color: #e03535;" title="eliminar"><i class="fa fa-times"></i></a>
+                          
+                        </td>
+                    </tr>
+                {% else %}
+                    
+                {% endfor %}
+                </tbody>
+            </table>
           
         </div>
     </div>
 
 
      {{ include('producto/new.html.twig') }}
+
 
 
 {% endblock %}
@@ -31,14 +71,31 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <!--check-->
     <script src="{{ asset('librerias/bootstrap-checkbox-1.5.0/dist/js/bootstrap-checkbox.js') }}" defer></script>
+     <!--Datatables-->
+    <script src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <!--eventos-->
+    <script src="{{ asset('js/producto.js') }}" type="text/javascript"> </script>
   
     <script>
 
         $(document).ready(function() {
             $(':checkbox').checkboxpicker();
 
-        } );
+             $('#table-productos').DataTable({
+                "language": {
+                  "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                }
+              });
+
+        });
+
+
+        $("#producto_isIva").prop("checked", true);
+
     </script>
+
+
+
 
 
 {% endblock %}

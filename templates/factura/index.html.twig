@@ -5,7 +5,7 @@
 {% block body %}
     <br>
     <fieldset id="fieldset_1" >
-        
+
         <div class="card">
             <div class="card-header" style="background-color: #c8d9ec;">
                 <div class="float-right">
@@ -14,7 +14,6 @@
                 <div class="float-left" style="color: #1e5d67;">
                     <h5> <i class="fa fa-search" aria-hidden="true"></i>  Buscar Factura</h5> 
                 </div>
-            
             </div>
             <div class="card-body">
                 <h5 class="card-title">Buscar</h5>
@@ -27,15 +26,23 @@
      {{ include('factura/new.html.twig') }}
 
 
+
 {% endblock %}
 
 
 {% block javascripts %}
  {{ parent() }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <!--Datatables-->
+    <script src=" https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> 
+     <!--check-->
+    <script src="{{ asset('librerias/bootstrap-checkbox-1.5.0/dist/js/bootstrap-checkbox.js') }}" defer></script>
 
+    <!--eventos-->
+    <script src="{{ asset('js/factura.js') }}" type="text/javascript"> </script>
+      
     <script>
-         //FUNCIÓN PARA EL BOTON SIGUIENTE
+        //FUNCIÓN PARA EL BOTON SIGUIENTE
         $('.new-fact').on("click", function() {
             console.log("click");
              //$("#fieldset_1").addClass("invisible");
@@ -47,8 +54,23 @@
             return false;
         });
 
-
     </script>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#table-productos').DataTable({
+                "language": {
+                  "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                }
+            });
+
+            $(':checkbox').checkboxpicker({onLabel:"Uds.",offLabel:"Paq."});
+
+        });
+    </script>
+
+
 
 {% endblock %}
 

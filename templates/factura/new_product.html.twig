@@ -1,0 +1,65 @@
+<!-- Modal -->
+<div id="product_new_modal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+        	<!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                	<div id="text-header-modal"><i class="fa fa-search"></i> Buscar Producto</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+
+                <div class="modal-body">
+                    <table class="table table-sm" id="table-productos" style="font-family: -webkit-pictograph;
+                    font-size: inherit;">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Producto</th>
+                                <th> </th>
+                                <th class="col-sm-2">Cant.</th>
+                                <th class="col-sm-2">Precio</th>
+                                <th>Agregar</th> 
+                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for producto in productos %}
+                            <tr id='{{ producto.id }}' >
+                                <td>{{ producto.barcode }}</td>
+                                <td>{{ producto.nombre }}</td>
+                                <td> <input type="checkbox" checked data-off-active-cls="btn-warning" data-on-active-cls="btn-primary" data-group-cls="btn-group-sm" class="producto_isUds"> </td>
+                                <td> <input type="number" class="form-control" id="cantidad" > </td>
+
+                                <td> 
+                                    <div class="input-group ">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">$</span>
+                                        </div>
+                                        <input  type="number" class="form-control producto_precio"  value='{{ producto.precioUnit }}' value1='{{ producto.precioUnit }}' value2='{{ producto.precioPack }}'>
+                                      
+                                    </div>
+
+
+                                </td>
+                                <td> <button type="button" class="addProd btn btn-sm btn-outline-info" href="#"><i class="fa fa-plus"></i></button> </td>
+                              
+                            </tr>
+                        {% else %}
+                            
+                        {% endfor %}
+                        </tbody>
+                    </table>
+              
+                   
+                </div>
+
+                <div class="modal-footer">
+            
+                </div>
+
+
+            </div>
+        </div>
+</div>
+
